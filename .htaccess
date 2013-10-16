@@ -18,6 +18,10 @@
 # --------------------------------------------------------------------------------
 
 
+# Disable Directory Listing
+Options -Indexes 
+
+
 # The first line sets the environment up to follow symbolic links using the
 # Options directive. This may or may not be necessary, but some web hosts use 
 # symlinks (similar to alias in MacOSX or shortcuts is Windows) for common 
