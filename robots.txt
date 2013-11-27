@@ -1,0 +1,3 @@
+User-agent:  * # Applies to all!
+Disallow: /sa_engine/ # Don't scan the includes directory.
+Disallow: /sa_admin/ # Don't scan the administrative directory, if it exists.

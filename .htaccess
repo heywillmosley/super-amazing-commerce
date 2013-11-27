@@ -1,26 +1,5 @@
-#
-# Super Amazing Commerce
-#
-# Super Amazing Commerce allows developers the ability to build a 
-# completely customizable, secure, fast, online store built for all devices.
-#
-# @package        Super Amazing Commerce
-# @author         Super Amazing, William Mosley, III <http://superamazingstore.com>
-# @copyright      Copyright (c) 2010 - 2013, Super Amazing
-# @license        GPL v2 <http://choosealicense.com/licenses/gpl-v2/>        
-# @link           https://github.com/superamazing/super-amazing-commerce
-# @docs           https://github.com/superamazing/super-amazing-commerce/wiki
-# @since          Version 2.0.0
-# -----------------------------------------------------------------
-#
-# .htaccess
-#
-# --------------------------------------------------------------------------------
-
-
 # Disable Directory Listing
 Options -Indexes 
-
 
 # The first line sets the environment up to follow symbolic links using the
 # Options directive. This may or may not be necessary, but some web hosts use 
@@ -64,7 +43,7 @@ RewriteCond %{SCRIPT_FILENAME} !-f
 # Remember the capture group earlier? That is where we get the variable $1, 
 # capture groups start at one. This creates a URL on the server like 
 # example.com/profile.php?id=123.
-RewriteRule ^(.*/?$) index.php?p=$1 
+RewriteRule ^(.*/?$) public-index.php?p=$1 
 
 # For Products
 #RewriteRule ^product/(.*/?$) ./system/views/product.php?p=$1 
@@ -72,22 +51,17 @@ RewriteRule ^(.*/?$) index.php?p=$1
 
 
 <IfModule mod_rewrite.c>
-RewriteEngine on
 # For sales:
 RewriteRule ^shop/sales/?$ sales.php
-
 # For the primary categories:
 RewriteRule ^shop/([A-Za-z\+]+)/?$ shop.php?type=$1
-
 # For specific products:
 RewriteRule ^browse/([A-Za-z\+\-]+)/([A-Za-z\+\-]+)/([0-9]+)$ browse.php?type=$1&category=$2&id=$3
-
-# For HTTPS pages:
-# Checks for condition where HTTPS is off
-RewriteCond %{HTTPS} off
-
-# Attempt to match 'checkout, etc, admin/anything'
-# If a match is made, the URL is rewritten to https://hostname/$1
-# Where $1 is the matched item
-RewriteRule ^(checkout\.php|billing\.php|final\.php|admin/(.*))$ https://%{HTTP_HOST}/$1 [R=301,L]
 </IfModule>
+
+
+# force url to lowercase if upper case is found
+RewriteCond %{REQUEST_URI} [A-Z]
+# ensure it is not a file on the drive first
+RewriteCond %{REQUEST_FILENAME} !-s
+RewriteRule (.*) rewrite-strtolower.php?rewrite-strtolower-url=$1 [QSA,L]

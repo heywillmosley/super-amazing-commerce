@@ -1,4 +1,5 @@
 ## generic files to ignore
+.DS_Store
 *~
 *.lock
 *.DS_Store

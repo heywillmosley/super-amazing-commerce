@@ -1,0 +1,11 @@
+# Disable indexing:
+Options All -indexes
+
+# Ignore every file:
+IndexIgnore *
+
+# Prevent access to any file:
+order allow,deny
+<Files ~ "\.(js|css|less|jpg|jpeg|png|gif)$">
+   allow from all
+</Files>
