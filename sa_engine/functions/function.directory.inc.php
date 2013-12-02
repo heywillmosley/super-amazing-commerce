@@ -18,6 +18,23 @@
  
 // --------------------------------------------------------------------------------
 
+/**
+ * This function redirects to a new page without using headers
+ *
+ * @package        Super Amazing Commerce   
+ * @author         Super Amazing, William Mosley, III <http://superamazingstore.com>
+ * @since          Version 2.0.0 
+ * @return         string
+ */
+	function redirect( $url )
+	{
+		$string = '<script type="text/javascript">';
+		$string .= 'window.location = "' . $url . '"';
+		$string .= '</script>';
+	
+		echo $string;
+		
+	} // end function redirect($url)
 
 # ADMIN
 

@@ -120,9 +120,7 @@ if( file_exists( dirname( ROOT_URI ).'/pilot_'.ROOT_DIR_NAME.'.php' ) ) require_
 elseif( file_exists( dirname( ROOT_URI ).'/sa_pilot.php' ) ) require_once ROOT_URI.'sa_pilot.php';
 else 
 {
-	echo '<h2>Please configure your <code>sa_pilot_sample.php</code> file</h2>';
-	echo '<ol><li>Configure per directions in file</li><li>Rename to <code>sa_pilot.php</code> or put above your root folder and rename exactly : pilot_the-name-of-your-root-folder.php</li><ol></p>';
-	die;
+	define( 'ENVIRONMENT', 'install' );
 }
 
 ## PILOT ##
@@ -147,6 +145,9 @@ require_once ROOT_URI.'sa_admin/classes/class.Pilot.inc.php';
 
 # Load Engine Classes
 function __autoload($class_name) {include_once ROOT_URI. 'sa_engine/classes/class.' . $class_name . '.inc.php';}
+
+# Fix html purifier autoload bug
+spl_autoload_register('__autoload');
 
 ## LOAD CLASSES ##
 ##################
@@ -185,6 +186,16 @@ $DBH = new Database;
 
 ## DATABASE ##
 ##############
+
+##############
+## SESSION ##
+
+session_start();
+
+//$_SESSION = NULL;
+
+## SESSION ##
+#############
 
 ###############
 ## LOAD PAGE ##

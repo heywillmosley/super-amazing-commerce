@@ -417,6 +417,7 @@ class Page
 			 else
 				$this->page = NULL;
 				
+				
 			/* Disabled until issue 7 is fixed.
 				 * See https://github.com/superamazing/Shadow/issues/7
 					
@@ -637,8 +638,7 @@ class Page
 					{	
 						$this->page404();
 					}
-						
-						
+					
 					
 					$this->viewFile = the_admin_views_uri().'pilot.php';
 					
@@ -655,14 +655,10 @@ class Page
 			 */
 			 	if( $this->viewFile != NULL )
 				{
-					
 					 if( !file_exists( $this->viewFile ) )
-					 {
-						 //new Exception( '<div class="alert">Could not find view file. Check path and that file exists in '. the_app_views_uri().' directory</div>' );
 						$this->page404();
 						
-					 } // end if( !file_exists( $page ) )
-				}
+				} // end if( $this->viewFile != NULL )
 				 
 				
 			

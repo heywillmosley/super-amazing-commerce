@@ -125,10 +125,8 @@ class Form
 	 */
 	 	function isSubmitted()
 		{
-			if( isset($_POST[$this->form_id.'-issubmitted'] ) )
+			if( !empty( $_POST ) )
 				return TRUE;
-			else
-				return FALSE;
 
 		}
 				
@@ -557,7 +555,7 @@ class Form
 					
 					# Close text tag	
 					$element .= "' />";
-					
+					echo $caption;
 				} // end if( $type == 'textarea' )
 			
 			

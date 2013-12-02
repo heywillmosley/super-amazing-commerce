@@ -38,20 +38,39 @@ class Database extends PDO
 	function __construct()
 	{
 		# Require set database constants
-		if( file_exists( dirname( ROOT_URI ).'/db_'.ROOT_DIR_NAME.'.php' ) ) require_once CORE_URI.'db_'.ROOT_DIR_NAME.'.php';
-else require_once ROOT_URI.'sa_db.php';
+		if( ENVIRONMENT == 'install' );
+		elseif( file_exists( dirname( ROOT_URI ).'/db_'.ROOT_DIR_NAME.'.php' ) )
+		{
+			require_once CORE_URI.'db_'.ROOT_DIR_NAME.'.php';
+			
+			$this->dbName = DB_NAME;
+			$this->dbHost = DB_HOST;
+			$this->dsn = 'mysql:dbname='.$this->dbName.';host='.$this->dbHost.'';
+			$this->username = DB_USER;
+			$this->password = DB_PASSWORD;
+			$this->driver = NULL;
+			
+		} // end if( file_exists( dirname( ROOT_URI ).'/db_'.ROOT_DIR_NAME.'.php' ) )
 		
-		$this->dbName = DB_NAME;
-		$this->dbHost = DB_HOST;
-		$this->dsn = 'mysql:dbname='.$this->dbName.';host='.$this->dbHost.'';
-		$this->username = DB_USER;
-		$this->password = DB_PASSWORD;
-		$this->driver = NULL;
+		
+		else 
+		{
+			require_once ROOT_URI.'sa_db.php';
+			
+			$this->dbName = DB_NAME;
+			$this->dbHost = DB_HOST;
+			$this->dsn = 'mysql:dbname='.$this->dbName.';host='.$this->dbHost.'';
+			$this->username = DB_USER;
+			$this->password = DB_PASSWORD;
+			$this->driver = NULL;
+			
+		} // end else
+		
 		
 		/**
 		 * Check if the database has be set
 		 */		
-			if( $this->dbName == NULL || $this->dbName == '' || $this->dbName == 'development-database-name-here' || $this->dbName == 'your-database-name-here' )
+			if( $this->dbName == NULL || $this->dbName == '' || $this->dbName == 'development-database-name-here' || $this->dbName == 'your-database-name-here' || ENVIRONMENT == 'install' )
 			{
 				$this->dbName = NULL;
 				$_GET['p'] = 'install';
